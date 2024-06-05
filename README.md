@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# Application de chat peer-to-peer avec WebRTC : TrustTalk
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+Ce projet est une application de chat en temps réel utilisant une architecture réseau peer-to-peer activée par WebRTC pour une communication directe entre les clients. Le serveur de signalisation, construit avec Node.js et WebSocket, facilite la configuration initiale de la connexion entre les clients. L'application garantit qu'une fois qu'une connexion peer-to-peer est établie, toutes les données (en particulier les messages de chat et les fichiers) sont échangées directement entre les clients, réduisant ainsi la latence et la charge du serveur.
 
-## Available Scripts
+## Fonctionnalités
 
-In the project directory, you can run:
+- **Chat en Temps Réel**:Utilise WebSocket pour la messagerie en temps réel
+- **Partage de Fichiers**: Permet aux utilisateurs de partager des fichiers directement via le chat.
+- **Liste des Utilisateurs en Ligne**:Affiche les utilisateurs disponibles et permet de se connecter avec eux.
+- **Interface Utilisateur Personnalisée**:Améliorée avec Semantic UI React et des styles CSS personnalisés.
 
-### `npm start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Front-end
+- **Framework**: React
+- **Bibliothèque UI**: Semantic UI React
+- **Fichiers Clés**:
+  - `App.js`: Point d'entrée principal, gère le contexte pour la connexion et le canal WebRTC.
+  - `Container.js`: Enveloppe le composant Chat avec les fournisseurs de contexte nécessaires.
+  - `Chat.js`: Fonctionnalité de chat principale, gère la connexion WebSocket et les connexions entre pairs WebRTC.
+  - `MessageBox.js`: Affiche les messages de chat et le champ de saisie.
+  - `UsersList.js`: Affiche une liste des utilisateurs en ligne et permet de se connecter à eux.
+### Ajouts HTML, CSS et JavaScript
+En plus des composants React, nous avons ajouté des fichiers HTML, CSS et JavaScript pour améliorer et exploiter ce que nous avons appris.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-**Fichiers html**: 
+  - `Home.html`: Page d'accueil pour l'application.
+  - `Join-Room.html`: Page pour rejoindre une room existante.
+  - `Create-Room.html`: Page pour la création d'une nouvelle room.
+  - `Erreur.html`: Page affichée en cas d'erreur.
+    
+-**Fichiers css**: 
+  - `Home.css`: Styles pour la page d'accueil.
+  - `Create-Join-Room.css`: Styles pour la page de création et la page pour rejoindre les rooms.
+  - `Erreur.css`: Styles pour la page d'erreur.
+    
+-**`script.js`**: Contient des fonctions supplémentaires pour les interactions utilisateur, telles que le changement de langue et le mode sombre/clair. Ce fichier est lié aux fichiers HTML et CSS mentionnés ci-dessus.
 
-### `npm test`
+### Back-end
+- **Langage**: JavaScript
+- **Framework**: Node.js
+- **Bibliothèque WebSocket**: ws
+- **Fichier Clé**:
+  - `signaling-server.js`: met en place un serveur WebSocket pour gérer la signalisation des connexions peer-to-peer entre utilisateurs en ligne.
+- **Responsabilités Clées**:
+  - Maintenir une liste des clients connectés.
+  - Informer les clients des nouvelles connexions.
+  - Transmettre les offres et les réponses de connexion.
+  - Échanger des candidats ICE.
+  - Informer les utilisateurs lorsqu'un client se déconnecte.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Structure du Code :
 
-### `npm run build`
+```
+TrustTalk
+├── public
+│   ├── index.html
+│   ├── manifest.json
+├── src
+│   ├── App.js
+│   ├── index.js
+│   ├── Container.js
+│   ├── Chat.js
+│   ├── MessageBox.js
+│   ├── UsersList.js
+├── signaling-server.js
+├── .gitignore
+└── package.json
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Organisation du Code Source :
+- `src`: Contient tous les composants front-end React.
+- `signaling-server`: Contient le serveur de signalisation WebSocket Node.js.
+- `public`: Fichiers statiques pour l'application React.
+- `README.md`: Documentation du projet.
+- `package.json`: Dépendances du projet et scripts.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Synchronisation avec Git :
+- Utilisation du `git clone <repository-url>` pour cloner le dépôt.
+- Commits réguliers avec des messages significatifs.
+- Stratégie de branches pour le développement de fonctionnalités, les corrections de bugs et les versions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Sécurité :
+### Back-end
+- Validation des Entrées: Toutes les entrées sont désinfectées pour éviter les attaques par injection.
+- Sécurité WebSocket: Gestion des connexions WebSocket de manière sécurisée pour éviter les accès non autorisés et les violations de données.
+### Front-end
+- Protection contre les Scripts Intercalés (XSS):
+  - Désinfection les entrées utilisateur et échappez les sorties dans les composants React.
+  - Utilisation des mécanismes de protection intégrés de React contre XSS.
+- Gestion de l'Identité et de l'Accès:
+  - Mise en œuvre des mécanismes d'authentification et d'autorisation des utilisateurs.
+  - Utilisation des méthodes sécurisées pour la connexion des utilisateurs et la gestion des sessions.
 
-### `npm run eject`
+## Compatibilité Multiplateforme :
+L'application est conçue pour être compatible avec différents navigateurs Web et appareils:
+- Navigateurs: Chrome, Firefox, Safari, Edge
+- Appareils: Ordinateurs de bureau, tablettes, smartphones
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Conception Responsive :
+Utilisation du Semantic UI React pour des composants d'interface utilisateur réactifs et adaptatifs.
+Testé pour la compatibilité sur différents tailles et résolutions d'écran.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Test de Compatibilité :
+- Tests réguliers sur différents navigateurs et appareils.
+- Utilisation d'outils comme BrowserStack pour les tests multi-navigateurs.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Documentation
+### Documentation du Code
+- Commentaires: Commentaires en ligne expliquant la fonctionnalité de chaque code.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Guides de Configuration et de Déploiement
+#### Installation:
+- Cloner le dépôt.
+- Exécutez `npm install` pour installer les dépendances.
 
-## Learn More
+#### Lancement du Serveur:
+- Naviguez vers le fichier du serveur 'signaling-server.js'.
+- Exécutez `node signaling-server.js` pour démarrer le serveur de signalisation.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Démarrage du Front-end:
+- Naviguez vers le répertoire racine 'TrustTalk'.
+- Exécutez `npm start` pour lancer l'application React.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Déploiement:
+- Assurez-vous que toutes les dépendances sont installées.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
