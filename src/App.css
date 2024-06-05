@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Spectral';
+  src: url('Spectral-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 200; 
+  font-style:italic;
+}
+
+.App {
+  text-align: center;
+  padding: 20px;
+  background:linear-gradient(to right, #ffccf9,#94baff);
+  font-family: 'Spectral', sans-serif;
+  font-style:italic;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.Title{
+  font-family: 'Spectral', sans-serif;
+  font-style: italic;
+  color:#560367;
+
+}
+
+.App-header {
+  background: linear-gradient(to right, #ffccf9,#94baff);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  font-family: 'Spectral', sans-serif;
+  font-style:italic;
+}
+
+.App-link {
+  color: #ffccf9;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
